@@ -1,7 +1,7 @@
 package vdro.tau.fish.domain;
 
-public class Product {
-    public Product(int Id,
+public class Fish {
+    public Fish(int Id,
                    String Label,
                    String Name,
                    String Description,
@@ -9,7 +9,7 @@ public class Product {
                    int Quantity,
                    float NetPrice,
                    float GrossPrice,
-                   boolean FakeProduct)
+                   boolean FakeFish)
     {
         if (Id < 0)
             throw new IllegalArgumentException("Id should be of positive value");
@@ -30,7 +30,7 @@ public class Product {
         this.Quantity = Quantity;
         this.NetPrice = NetPrice;
         this.GrossPrice = GrossPrice;
-        this.FakeProduct = FakeProduct;
+        this.FakeFish = FakeFish;
     }
 
     private int Id;
@@ -41,7 +41,7 @@ public class Product {
     private int Quantity;
     private float NetPrice;
     private float GrossPrice;
-    private boolean FakeProduct;
+    private boolean FakeFish;
 
     public int getId() {
         return Id;
@@ -107,11 +107,11 @@ public class Product {
         GrossPrice = grossPrice;
     }
 
-    public boolean isFakeProduct() {
-        return FakeProduct;
+    public boolean isFakeFish() {
+        return FakeFish;
     }
 
-    public void setFakeProduct(boolean fakeProduct) {
-        FakeProduct = fakeProduct;
+    public void setFakeFish(boolean fakeFish) {
+        FakeFish = fakeFish;
     }
 }
