@@ -22,4 +22,20 @@ public void fishIsImplementedTest() {
                 true
         ));
 }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void fishIdArgumentShouldAcceptOnlyPositiveNumberTest(){
+                new Fish(
+                        -1,
+                        "TEST_Fish",
+                        "Test Fish",
+                        "This fish has been created in test class",
+                        1,
+                        1,
+                        1.20f,
+                        1.60f,
+                        true
+                );
+        }
+
         }
