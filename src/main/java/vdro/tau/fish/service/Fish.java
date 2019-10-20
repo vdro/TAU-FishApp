@@ -43,7 +43,8 @@ class FishImpl implements FishServiceManager {
         if(!FishList.containsKey(Id))
             throw new NoSuchObjectException("Fish with (" + Id + ") does not exist.");
 
-        FishList.remove(Id);
+        FishList.clear();
+        //.remove(Id);
     }
 }
 

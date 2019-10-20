@@ -92,7 +92,7 @@ public class FishImplTest {
         FishImpl fishImpl = new FishImpl();
 
         fishImpl.create(testFish1);
-        fishImpl.read(200);
+        fishImpl.read(2);
     }
 
     @Test
