@@ -105,8 +105,8 @@ public class FishTrackedImplTest {
     public void Time_verification(){
         TimeProvider timeProviderMock = mock(TimeProvider.class);
         when(timeProviderMock.Now()).thenReturn(new Date(12345));
-//        RecordAccessManagerImpl SUT = new RecordAccessManagerImpl(timeProviderMock);
-        RecordAccessManagerImpl SUT = new RecordAccessManagerImpl();
+        RecordAccessManagerImpl SUT = new RecordAccessManagerImpl(timeProviderMock);
+       // RecordAccessManagerImpl SUT = new RecordAccessManagerImpl();
 
         SUT.StoreRead(1);
 
