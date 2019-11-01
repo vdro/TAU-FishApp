@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-class FishTrackedImpl implements FishServiceManager {
+public class FishTrackedImpl implements FishServiceManager {
 
     private final RecordAccessManager recordAccessManager;
     private final FishServiceManager realFishServiceManager;

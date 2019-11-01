@@ -5,7 +5,7 @@ import java.rmi.NoSuchObjectException;
 import java.util.HashMap;
 import java.util.Map;
 
-class FishImpl implements FishServiceManager {
+public class FishImpl implements FishServiceManager {
 
     private Map<Integer, Fish> FishList = new HashMap<>();
 
