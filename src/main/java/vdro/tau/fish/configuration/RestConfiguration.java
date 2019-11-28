@@ -10,7 +10,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc // tak jak w XML: <mvc:annotation-driven />
-@ComponentScan({"pl.tau.restdemo"})
+@ComponentScan({"vdro.tau.fish"})
 public class RestConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> messageConverters) {

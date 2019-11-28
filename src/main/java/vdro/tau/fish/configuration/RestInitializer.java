@@ -10,9 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-/**
- * Created by tp on 24.04.17.
- */
+
+
 public class RestInitializer implements WebApplicationInitializer {
 
     @Override
@@ -26,7 +25,7 @@ public class RestInitializer implements WebApplicationInitializer {
     }
     private AnnotationConfigWebApplicationContext getContext() {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.setConfigLocation("pl.tau.restdemo.configuration");
+        context.setConfigLocation("vdro.tau.fish.configuration");
         return context;
     }
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class FishImpl implements FishServiceManager {
 
+    private static int id;
     private Map<Integer, Fish> FishList = new HashMap<>();
 
     @Override
@@ -18,12 +19,13 @@ public class FishImpl implements FishServiceManager {
     }
 
     @Override
-    public Map<Integer, Fish> readAll() {
+    public  Map<Integer, Fish> readAll() {
         return FishList;
     }
 
     @Override
-    public Fish read(int Id) throws NoSuchObjectException {
+    public  Fish read(int Id) throws NoSuchObjectException {
+        id = Id;
         if(!FishList.containsKey(Id))
             throw new NoSuchObjectException("Fish with Id (" + Id + ") does not exist.");
 
