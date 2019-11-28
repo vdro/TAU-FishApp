@@ -38,7 +38,6 @@ public class FishTrackedImplTest {
         // real service under test (using mokcs)
         FishServiceManager SUT = new FishTrackedImpl(realFishServiceMock, accessManagerMock);
 
-
         //act
         Fish readFish = SUT.read(1);
 
