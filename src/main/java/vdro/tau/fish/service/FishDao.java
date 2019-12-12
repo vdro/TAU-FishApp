@@ -3,12 +3,14 @@ package vdro.tau.fish.service;
 import vdro.tau.fish.domain.Fish;
 
 import org.springframework.stereotype.Service;
+
+import java.rmi.NoSuchObjectException;
 import java.sql.*;
 
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -89,7 +91,7 @@ public class FishDao implements FishServiceManager {
     }
 
     @Override
-    public Integer create(Fish fish) throws IllegalStateException {
+    public int create(Fish fish) throws IllegalStateException {
         int count = 0;
         try {
             addFishStmt.setString(1, fish.getLabel());
@@ -163,7 +165,17 @@ public class FishDao implements FishServiceManager {
     }
 
     @Override
-    public Integer update(Fish fish) throws SQLException {
+    public Map<Integer, Fish> readAll() {
+        return null;
+    }
+
+    @Override
+    public Fish read(int Id) throws NoSuchObjectException {
+        return null;
+    }
+
+    @Override
+    public int update(Fish fish) throws SQLException {
         int count = 0;
         try {
             updateFishStmt.setString(1, fish.getLabel());
@@ -192,5 +204,10 @@ public class FishDao implements FishServiceManager {
         } catch (SQLException e) {
             throw new IllegalStateException(e.getMessage() + "\n" + e.getStackTrace().toString());
         }
+    }
+
+    @Override
+    public void delete(int Id) throws NoSuchObjectException {
+
     }
 }

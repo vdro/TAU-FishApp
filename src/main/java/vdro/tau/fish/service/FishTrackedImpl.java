@@ -2,11 +2,10 @@ package vdro.tau.fish.service;
 import vdro.tau.fish.domain.Fish;
 
 import java.rmi.NoSuchObjectException;
-import java.util.Date;
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.Map;
 
-public class FishTrackedImpl implements FishServiceManager {
+public abstract class FishTrackedImpl implements FishServiceManager {
 
     private final RecordAccessManager recordAccessManager;
     private final FishServiceManager realFishServiceManager;
@@ -18,9 +17,10 @@ public class FishTrackedImpl implements FishServiceManager {
     }
 
     @Override
-    public void create(Fish fish) {
+    public int create(Fish fish) {
         recordAccessManager.StoreCreate(fish);
         realFishServiceManager.create(fish);
+        return 0;
     }
 
     @Override
@@ -30,9 +30,10 @@ public class FishTrackedImpl implements FishServiceManager {
     }
 
     @Override
-    public void update(Fish fish) throws NoSuchObjectException {
+    public int update(Fish fish) throws NoSuchObjectException, SQLException {
         recordAccessManager.StoreWrite(fish);
         realFishServiceManager.update(fish);
+        return 0;
     }
 
     @Override

@@ -2,7 +2,9 @@ package vdro.tau.fish.service;
 import vdro.tau.fish.domain.Fish;
 
 import java.rmi.NoSuchObjectException;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FishImpl implements FishServiceManager {
@@ -11,11 +13,22 @@ public class FishImpl implements FishServiceManager {
     private Map<Integer, Fish> FishList = new HashMap<>();
 
     @Override
-    public void create(Fish fish) {
+    public int create(Fish fish) {
         if(FishList.containsKey(fish.getId()))
             throw new IllegalArgumentException("Fish with Id (" + fish.getId() + ")already exists");
 
         FishList.put(fish.getId(), fish);
+        return 0;
+    }
+
+    @Override
+    public List<Fish> getAll() {
+        return null;
+    }
+
+    @Override
+    public Fish get(int Id) throws SQLException {
+        return null;
     }
 
     @Override
@@ -33,11 +46,17 @@ public class FishImpl implements FishServiceManager {
     }
 
     @Override
-    public void update(Fish fish) throws NoSuchObjectException {
+    public int update(Fish fish) throws NoSuchObjectException {
         if(!FishList.containsKey(fish.getId()))
             throw new NoSuchObjectException("Fish with (" + fish.getId() + ") does not exist.");
 
         FishList.put(fish.getId(), fish);
+        return 0;
+    }
+
+    @Override
+    public Integer delete(Long Id) throws SQLException {
+        return null;
     }
 
     @Override

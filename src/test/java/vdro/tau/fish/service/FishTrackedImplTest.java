@@ -4,6 +4,7 @@ import org.junit.Test;
 import vdro.tau.fish.domain.Fish;
 
 import java.rmi.NoSuchObjectException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,22 @@ public class FishTrackedImplTest {
         RecordAccessManager accessManagerMock = mock(RecordAccessManager.class);
 
         // real service under test (using mokcs)
-        FishServiceManager SUT = new FishTrackedImpl(realFishServiceMock, accessManagerMock);
+        FishServiceManager SUT = new FishTrackedImpl(realFishServiceMock, accessManagerMock) {
+            @Override
+            public List<Fish> getAll() {
+                return null;
+            }
+
+            @Override
+            public Fish get(int Id) throws SQLException {
+                return null;
+            }
+
+            @Override
+            public Integer delete(Long Id) throws SQLException {
+                return null;
+            }
+        };
 
         //act
         Fish readFish = SUT.read(1);
