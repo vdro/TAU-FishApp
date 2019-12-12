@@ -115,7 +115,7 @@ public class FishDao implements FishServiceManager {
     public List<Fish> getAll() {
         List<Fish> FishList = new LinkedList<>();
         try {
-            ResultSet rs = getAllFishsStmt.executeQuery();
+            ResultSet rs = getAllFishStmt.executeQuery();
             while(rs.next()) {
                 Fish p = new Fish();
                 p.setId(rs.getInt("Id"));
