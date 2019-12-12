@@ -1,18 +1,21 @@
 package vdro.tau.fish.domain;
-
 public class Fish {
+
+    public Fish() {
+
+    }
+
     public Fish(int Id,
-                   String Label,
-                   String Name,
-                   String Description,
-                   int CategoryId,
-                   int Quantity,
-                   float NetPrice,
-                   float GrossPrice,
-                   boolean FakeFish)
-    {
-        if (Id < 0)
-            throw new IllegalArgumentException("Id should be of positive value");
+                String Label,
+                String Name,
+                String Description,
+                int CategoryId,
+                int Quantity,
+                float NetPrice,
+                float GrossPrice,
+                boolean FakeFish) {
+        if (Id <= 0)
+            throw new IllegalArgumentException("Id should be of positive value and not 0");
         if (CategoryId < 0)
             throw new IllegalArgumentException("CategoryId should be of positive value");
         if (Quantity < 0)
@@ -31,6 +34,7 @@ public class Fish {
         this.NetPrice = NetPrice;
         this.GrossPrice = GrossPrice;
         this.FakeFish = FakeFish;
+        this.saveTimeStamps = true;
     }
 
     private int Id;
@@ -42,6 +46,9 @@ public class Fish {
     private float NetPrice;
     private float GrossPrice;
     private boolean FakeFish;
+    private boolean saveTimeStamps;
+
+    public String updateDate;
 
     public int getId() {
         return Id;
@@ -114,4 +121,24 @@ public class Fish {
     public void setFakeFish(boolean fakeFish) {
         FakeFish = fakeFish;
     }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String date) throws IllegalStateException {
+        if (true == this.saveTimeStamps)
+            this.updateDate = date;
+        else
+            throw new IllegalStateException("Cannot set time stamp. This fish has disabled time stamps.");
+    }
+
+    public boolean isSaveTimeStamps() {
+        return saveTimeStamps;
+    }
+
+    public void setSaveTimeStamps(boolean saveTimeStamps) {
+        this.saveTimeStamps = saveTimeStamps;
+    }
+
 }

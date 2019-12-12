@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="TAU-FishApp" target="11" />
+      <module name="TAU-FishApp" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
