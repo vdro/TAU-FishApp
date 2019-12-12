@@ -1,21 +1,26 @@
 package vdro.tau.fish.web;
 
+import vdro.tau.fish.domain.Fish;
+import vdro.tau.fish.service.FishDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import vdro.tau.fish.domain.Fish;
-import vdro.tau.fish.service.FishImpl;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import java.rmi.NoSuchObjectException;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @RestController
 public class FishApi {
 
+    private FishDao fishDao;
+
     @Autowired
-    FishImpl fishImpl;
+    public FishApi(FishDao fishDao) {
+        this.fishDao = fishDao;
+    }
 
     @RequestMapping("/")
     public String index() {
@@ -24,21 +29,19 @@ public class FishApi {
 
     @RequestMapping(value = "/fish/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Fish getProduct(@PathVariable("id") int id) throws  NoSuchObjectException {
-        return fishImpl.read(id);
-
+    public Fish getFish (@PathVariable("id") int id) throws SQLException {
+        return fishDao.get(id);
     }
 
     @RequestMapping(value = "/fish", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<Integer, Fish> getFish() {
-        return fishImpl.readAll();
+    public List<Fish> getFish() {
+        return fishDao.getAll();
     }
 
     @RequestMapping(value = "/fish/add", method = RequestMethod.POST)
     @ResponseBody
     public String createFish(
-            @RequestParam(value = "id", required = true) int id,
             @RequestParam(value = "label", required = true) String label,
             @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "description", required = true) String description,
@@ -46,30 +49,28 @@ public class FishApi {
             @RequestParam(value = "quantity", required = true) int quantity,
             @RequestParam(value = "net_price", required = true) float net_price,
             @RequestParam(value = "gross_price", required = true) float gross_price,
-            @RequestParam(value = "fake_product", required = true) boolean fake_product
+            @RequestParam(value = "fake_fish", required = true) boolean fake_fish
     ){
 
-        fishImpl.create(
-                new Fish (
-                        id,
-                        label,
-                        name,
-                        description,
-                        category_id,
-                        quantity,
-                        net_price,
-                        gross_price,
-                        fake_product
-                )
-        );
+        Fish p = new Fish ();
+        p.setLabel(label);
+        p.setName(name);
+        p.setDescription(description);
+        p.setCategoryId(category_id);
+        p.setQuantity(quantity);
+        p.setNetPrice(net_price);
+        p.setGrossPrice(gross_price);
+        p.setFakeFish(fake_fish);
 
-        return ("Fish with id [" + id + "] has been created in database.");
+        fishDao.create(p);
+
+        return ("Fish has been successfully created in database.");
     }
 
     @RequestMapping(value = "/fish/update", method = RequestMethod.POST)
     @ResponseBody
     public String updateFish(
-            @RequestParam(value = "id", required = true) int id,
+            @RequestParam(value = "id", required = true) String _id,
             @RequestParam(value = "label", required = false) String _label,
             @RequestParam(value = "name", required = false) String _name,
             @RequestParam(value = "description", required = false) String _description,
@@ -77,37 +78,37 @@ public class FishApi {
             @RequestParam(value = "quantity", required = false) String _quantity,
             @RequestParam(value = "net_price", required = false) String _net_price,
             @RequestParam(value = "gross_price", required = false) String _gross_price,
-            @RequestParam(value = "fake_product", required = false) String _fake_product
-    ) throws NoSuchObjectException {
+            @RequestParam(value = "fake_fish", required = false) String _fake_fish
+    ) throws SQLException {
 
-        Fish FishToUpdate = fishImpl.read(id);
+        Fish fishToUpdate = fishDao.get(Integer.parseInt(_id));
 
         if(_label != null)
-            FishToUpdate.setLabel(_label);
+            fishToUpdate.setLabel(_label);
         if(_name != null)
-            FishToUpdate.setName(_name);
+            fishToUpdate.setName(_name);
         if(_description != null)
-            FishToUpdate.setDescription(_description);
+            fishToUpdate.setDescription(_description);
         if(_category_id != null)
-            FishToUpdate.setCategoryId(Integer.parseInt(_category_id));
+            fishToUpdate.setCategoryId(Integer.parseInt(_category_id));
         if(_quantity != null)
-            FishToUpdate.setQuantity(Integer.parseInt(_quantity));
+            fishToUpdate.setQuantity(Integer.parseInt(_quantity));
         if(_net_price != null)
-            FishToUpdate.setNetPrice(Float.parseFloat(_net_price));
+            fishToUpdate.setNetPrice(Float.parseFloat(_net_price));
         if(_gross_price != null)
-            FishToUpdate.setGrossPrice(Float.parseFloat(_gross_price));
-        if(_fake_product != null)
-            FishToUpdate.setFakeFish(Boolean.parseBoolean(_fake_product));
+            fishToUpdate.setGrossPrice(Float.parseFloat(_gross_price));
+        if(_fake_fish != null)
+            fishToUpdate.setFakeFish(Boolean.parseBoolean(_fake_fish));
 
-        fishImpl.update(FishToUpdate);
+        fishDao.update(fishToUpdate);
 
-        return ("Fish with id [" + id + "] has been created in database.");
+        return ("Fish with id [" + _id + "] has been updated in database.");
     }
 
-    @RequestMapping(value = "/fish/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/fish/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String deleteFish(@PathVariable("id") int id) throws NoSuchObjectException {
-        fishImpl.delete(id);
+    public String deleteFish(@PathVariable("id") long id) throws SQLException {
+        fishDao.delete(id);
         return new String("Fish with id [" + id + "] has been successufully deleted.");
     }
 

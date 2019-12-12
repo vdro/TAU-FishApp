@@ -1,13 +1,15 @@
 package vdro.tau.fish.service;
+
 import vdro.tau.fish.domain.Fish;
-import java.rmi.NoSuchObjectException;
-import java.util.Map;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public interface FishServiceManager {
 
-    void create(Fish product);
-    Map<Integer, Fish> readAll();
-    Fish read(int Id) throws NoSuchObjectException;
-    void update(Fish product) throws NoSuchObjectException;
-    void delete(int Id) throws NoSuchObjectException;
+    Integer create(Fish fish) throws IllegalStateException;
+    List<Fish> getAll();
+    Fish get(int Id) throws SQLException;
+    Integer update(Fish fish) throws SQLException;
+    Integer delete(Long Id) throws SQLException;
 }
